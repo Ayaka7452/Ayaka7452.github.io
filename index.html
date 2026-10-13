@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayaka7452</title>
+<meta name="description" content="Ayaka 的 Android 应用与开源项目。">
+<link rel="icon" href="assets/avatar.jpg" type="image/jpeg">
+<style>
+  :root {
+    --accent: #00668C;
+    --accent-soft: #E6F2F7;
+    --text: #1D2528;
+    --text-secondary: #5A6B72;
+    --bg: #FBFDFE;
+    --card: #FFFFFF;
+    --border: #E4ECF0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---- Nav ---- */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(251, 253, 254, 0.88);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 900px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 17px; letter-spacing: 0.2px;
+  }
+  .brand img { width: 26px; height: 26px; border-radius: 7px; display: block; }
+  .hamburger {
+    margin-left: auto;
+    width: 40px; height: 40px; border: none; border-radius: 10px;
+    background: transparent; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    transition: background 0.15s ease;
+  }
+  .hamburger:hover { background: var(--accent-soft); }
+  .hamburger span {
+    display: block; width: 20px; height: 2px; border-radius: 2px;
+    background: var(--text); transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .menu {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.25s ease;
+    border-top: 1px solid transparent;
+  }
+  .menu.open { max-height: 320px; border-top-color: var(--border); }
+  .menu-inner {
+    max-width: 900px; margin: 0 auto; padding: 10px 24px 18px;
+    display: flex; flex-direction: column;
+  }
+  .menu-inner a {
+    padding: 11px 12px; border-radius: 10px;
+    font-size: 15px; font-weight: 600; color: var(--text-secondary);
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .menu-inner a:hover { background: var(--accent-soft); color: var(--accent); }
+  .menu-inner .menu-label {
+    font-size: 12px; color: var(--text-secondary); opacity: 0.7;
+    padding: 10px 12px 2px; font-weight: 600; letter-spacing: 1px;
+  }
+
+  /* ---- Hero ---- */
+  .hero { padding: 60px 0 40px; }
+  .hero h1 { font-size: 17.5px; font-weight: 700; line-height: 1.7; color: var(--text); }
+  .hero p { margin-top: 2px; font-size: 17.5px; color: var(--text-secondary); max-width: 32em; }
+
+  /* ---- App rows ---- */
+  .apps { display: grid; gap: 16px; padding-bottom: 24px; }
+  .app {
+    display: flex; gap: 22px; align-items: center;
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px 26px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .app:hover { transform: translateY(-2px); border-color: #C9DEE8; box-shadow: 0 12px 28px rgba(0, 60, 90, 0.08); }
+  .app-logo { width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0; display: block; }
+  .app-body { flex: 1; min-width: 0; }
+  .app h2 { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .badge {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    background: var(--accent-soft); border-radius: 999px; padding: 1px 10px;
+  }
+  .app p { margin-top: 4px; font-size: 14.5px; color: var(--text-secondary); }
+  .app-actions { display: flex; gap: 18px; flex-shrink: 0; }
+  .app-actions a { font-size: 14px; font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .app-actions a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ---- Footer ---- */
+  footer {
+    border-top: 1px solid var(--border); margin-top: 40px;
+    padding: 32px 24px 44px; text-align: center;
+    color: var(--text-secondary); font-size: 14px;
+  }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 44px 0 32px; }
+    .app { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .app-actions { margin-top: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="./">
+      <img src="assets/avatar.jpg" alt="">
+      Ayaka7452 Apps
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="menu" id="menu">
+    <div class="menu-inner">
+      <div class="menu-label">应用</div>
+      <a href="daymate/">DayMate · 倒数日</a>
+      <a href="https://github.com/Ayaka7452/splat" target="_blank" rel="noopener">WebGL Gaussian Splatting Viewer</a>
+      <a href="https://github.com/Ayaka7452/CmdExec" target="_blank" rel="noopener">CmdExec · 命令快捷执行</a>
+      <div class="menu-label">链接</div>
+      <a href="https://github.com/Ayaka7452" target="_blank" rel="noopener">GitHub 主页</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="hero">
+    <h1>记录时间，也记录热爱。</h1>
+    <p>汇集我自用的 Android 应用与开源项目。</p>
+  </header>
+
+  <main class="apps">
+
+    <article class="app">
+      <img class="app-logo" src="assets/icon.svg" alt="DayMate">
+      <div class="app-body">
+        <h2>DayMate <span class="badge">Android · 开源</span></h2>
+        <p>轻量的倒数日应用，记录你的期待与坚持。</p>
+      </div>
+      <div class="app-actions">
+        <a href="daymate/">了解更多</a>
+        <a href="https://github.com/Ayaka7452/DayMate/releases/latest" target="_blank" rel="noopener">下载</a>
+      </div>
+    </article>
+
+    <article class="app">
+      <img class="app-logo" src="assets/splat.svg" alt="splat">
+      <div class="app-body">
+        <h2>WebGL Gaussian Splatting Viewer <span class="badge">Web · 开源 · Fork</span></h2>
+        <p>在浏览器里直接查看 3D 高斯泼溅场景，支持本地文件查看。</p>
+      </div>
+      <div class="app-actions">
+        <a href="https://github.com/Ayaka7452/splat" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
+    <article class="app">
+      <img class="app-logo" src="assets/cmdexec.svg" alt="CmdExec">
+      <div class="app-body">
+        <h2>CmdExec <span class="badge">Android · 开源</span></h2>
+        <p>4 个命令槽位绑定桌面长按快捷方式，Root / Shell 模式即点即执行。</p>
+      </div>
+      <div class="app-actions">
+        <a href="https://github.com/Ayaka7452/CmdExec" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </article>
+
+  </main>
+</div>
+
+<footer>
+  Made with ❤️ by <a href="https://github.com/Ayaka7452" target="_blank" rel="noopener">Ayaka7452</a>
+</footer>
+
+<script>
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('menu');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  // 点击菜单项后自动收起
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open'); btn.classList.remove('open');
+  }));
+</script>
+</body>
+</html>

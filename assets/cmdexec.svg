@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108">
+  <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34D0A8"/>
+      <stop offset="1" stop-color="#0E9C7B"/>
+    </linearGradient>
+  </defs>
+  <rect width="108" height="108" rx="24" fill="url(#cbg)"/>
+  <!-- 终端提示符 >_ -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 38 L48 54 L30 70"/>
+    <path d="M58 74 L80 74"/>
+  </g>
+</svg>
